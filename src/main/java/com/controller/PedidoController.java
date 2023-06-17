@@ -7,59 +7,56 @@ import com.model.Pedido;
 
 public abstract class PedidoController {
 
-    public static void cadastrarPedido(Pedido pedido) {
+    public static void cadastrarPedido(Pedido pedido) throws Exception {
         try {
             PedidoDao.cadastrarPedido(pedido);
         } catch (Exception e) {
-            System.out.println("Erro ao realizar o cadastro");
+            throw new Exception("Erro ao cadastrar pedido, CAUSA:" + e.getMessage());
         }
     }
 
-    public static void alterarPedido(Pedido pedido) {
+    public static void alterarPedido(Pedido pedido) throws Exception {
         try {
             if(PedidoDao.buscarPedido(pedido.getId()) != null){
                 PedidoDao.alteraPedido(pedido);
             }
         } catch (Exception e) {
-            System.out.println("Erro ao alterar o cadastro");
+            throw new Exception("Erro ao alterar pedido, CAUSA:" + e.getMessage());
         }
     }
 
-    public static void deletarPedido(int id) {
+    public static void deletarPedido(int id) throws Exception {
         try {
             if(PedidoDao.buscarPedido(id) != null){
                 PedidoDao.deletaPedido(PedidoDao.buscarPedido(id));
             }
         } catch (Exception e) {
-            System.out.println("Erro ao deletar o cadastro");
+            throw new Exception("Erro ao deletar pedido, CAUSA:" + e.getMessage());
         }
     }
 
-    public static List<Pedido> listarPedidos() {
+    public static List<Pedido> listarPedidos() throws Exception {
         try {
             return PedidoDao.listarPedidos();
         } catch (Exception e) {
-            System.out.println("Erro ao listar o cadastro");
-            return null;
+            throw new Exception("Erro ao listar pedido, CAUSA:" + e.getMessage());
         }
     }
 
-    public static Pedido buscarPedidoPorId(int id) {
+    public static Pedido buscarPedidoPorId(int id) throws Exception {
         try {
             if(id == 0) throw new Exception();
             return PedidoDao.buscarPedido(id);      
         } catch (Exception e) {
-            System.out.println("Erro ao buscar o cadastro");
-            return null;
+            throw new Exception("Erro ao buscar pedido, CAUSA:" + e.getMessage());
         }
     }
 
-    public static List<Pedido> buscarPedidoPorNome(String nome) {
+    public static List<Pedido> buscarPedidoPorNome(String nome) throws Exception {
         try {
             return PedidoDao.buscarPedidoPorNome(nome);      
         } catch (Exception e) {
-            System.out.println("Erro ao buscar o cadastro");
-            return null;
+            throw new Exception("Erro ao buscar pedido, CAUSA:" + e.getMessage());
         }
     }
 }

@@ -34,6 +34,4 @@ public class Cliente extends Pessoa {
     public String toString() {
         return "\nCliente [id=" + ", enderecoEntregas=" + enderecoEntregas + "] " + super.toString();
     }
-
-
 }

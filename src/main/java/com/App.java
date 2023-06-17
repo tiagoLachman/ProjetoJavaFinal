@@ -1,20 +1,17 @@
 package com;
 
-import com.controller.ClienteController;
-import com.controller.FuncionarioController;
-import com.model.Cliente;
-import com.model.Funcionario;
+import com.controller.*;
+import com.model.*;
 
 
 public class App {
     public static void main( String[] args ) {
         Cliente cliente = new Cliente("tiago","asd",101,"101", "asd", "asd", "@asd", 123, "asd");
         Funcionario funcionario = new Funcionario("asd","asd",101,"101", "asd", "asd", "@asd", 123, 123,"asd");
+        Produto produto = new Produto("teclado", 1, 2.0, "asd");
 
         try {
-            Cliente cli = new Cliente("viadao alterador","asd",101,"101", "asd", "asd", "@asd", 123, "asd");
-            ClienteController.deletarCliente(5);
-            
+            ProdutoController.alterarProduto(1, produto);
         } catch (Exception e) {
             System.out.println("erro ao salvar " + e.getMessage());
         }

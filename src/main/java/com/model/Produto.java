@@ -1,13 +1,13 @@
 package com.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String nomeProduto;
     private int quantidadeEstoque;
     private Double preço;
@@ -34,6 +34,10 @@ public class Produto {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getQuantidadeEstoque() {
