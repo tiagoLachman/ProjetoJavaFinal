@@ -26,10 +26,6 @@ public class Cliente extends Pessoa {
         this.enderecoEntregas = enderecoEntregas;
     }
 
-    protected Double calcularDesconto(Double Valor) {
-        return 0.0;
-    }
-
     @Override
     public String toString() {
         return "Cliente [enderecoEntregas=" + enderecoEntregas + ", " + super.toString() + "]" ;

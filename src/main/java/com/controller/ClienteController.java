@@ -71,10 +71,10 @@ public abstract class ClienteController {
         }
     }
 
-    public static List<Cliente> buscarClientePorNome(String nome) throws Exception {
+    public static List<Cliente> buscarClientePorCPF(String nome) throws Exception {
         try {
             if (nome != null) {
-                return ClienteDao.buscarClientePorNome(nome);
+                return ClienteDao.buscarClientePorCPF(nome);
             } else {
                 return null;
             }

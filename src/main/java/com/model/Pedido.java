@@ -1,5 +1,6 @@
 package com.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Pedido {
     private int idPedido;
 
     private double valorTotal;
-    private String dataPedido;
+    private LocalDateTime dataPedido;
     private Double desconto = 0.00;
 
     @ManyToOne
@@ -24,7 +25,7 @@ public class Pedido {
     @JoinColumn(name = "pedidoId")
     private List<PedidoProduto> produtos = new ArrayList<>();
 
-    public Pedido(double valorTotal, String dataPedido, Double desconto) {
+    public Pedido(double valorTotal, LocalDateTime dataPedido, Double desconto) {
         this.valorTotal = valorTotal;
         this.dataPedido = dataPedido;
         this.desconto = desconto;
@@ -105,11 +106,11 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public String getDataPedido() {
+    public LocalDateTime getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(String dataPedido) {
+    public void setDataPedido(LocalDateTime dataPedido) {
         this.dataPedido = dataPedido;
     }
 
