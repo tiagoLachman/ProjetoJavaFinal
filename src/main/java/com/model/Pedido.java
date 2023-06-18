@@ -37,7 +37,7 @@ public class Pedido {
         pedidoProduto.setProduto(produto);
         pedidoProduto.setQuantidade(quantidade);
         for (PedidoProduto pp : produtos) {
-            if(pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())){
+            if (pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())) {
                 return false;
             }
         }
@@ -51,7 +51,7 @@ public class Pedido {
         pedidoProduto.setProduto(produto);
         pedidoProduto.setQuantidade(quantidade);
         for (PedidoProduto pp : produtos) {
-            if(pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())){
+            if (pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())) {
                 produtos.remove(pp);
                 produtos.add(pedidoProduto);
                 return true;

@@ -29,7 +29,7 @@ public abstract class PedidoController {
             throw new Exception("Erro, não há estoque disponível para o produto \"" + produto.getNomeProduto() + "\".");
         try {
             if (!pedido.addProduto(produto, quantidade))
-                throw new Exception("Produto já consta no carrinho");
+                throw new Exception("Produto \"" + produto.getNomeProduto() + "\" já consta no carrinho");
             produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
         } catch (Exception e) {
             throw new Exception("Erro ao adicionar no carrinho, CAUSA:" + e.getMessage());
@@ -50,7 +50,7 @@ public abstract class PedidoController {
         try {
             int qnt = pedido.getQuantidade(produto);
             if (!pedido.removerProduto(produto))
-                throw new Exception("Produto não consta no carrinho");
+                throw new Exception("Produto \"" + produto.getNomeProduto() + "\" não consta no carrinho");
             produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + qnt);
         } catch (Exception e) {
             throw new Exception("Erro ao remover do carrinho, CAUSA:" + e.getMessage());

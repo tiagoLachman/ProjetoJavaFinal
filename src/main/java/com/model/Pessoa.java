@@ -29,14 +29,15 @@ public class Pessoa implements Serializable {
     public Pessoa() {
 
     }
-    
+
     public int getId() {
         return idPessoa;
     }
-    
+
     public void setId(int id) {
         this.idPessoa = id;
     }
+
     public String getNome() {
         return nome;
     }
@@ -107,7 +108,5 @@ public class Pessoa implements Serializable {
                 + ", email=" + email + ", cpf=" + cpf + ", cep=" + cep + ", idade=" + idade + ", telefone=" + telefone
                 + "]";
     }
-
-    
 
 }

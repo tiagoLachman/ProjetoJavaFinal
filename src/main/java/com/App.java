@@ -3,9 +3,8 @@ package com;
 import com.controller.*;
 import com.model.*;
 
-
 public class App {
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         Cliente cliente = new Cliente();
         Produto teclado = new Produto();
         Produto mouse = new Produto();
@@ -21,16 +20,16 @@ public class App {
             pedido = PedidoController.buscarPedidoPorId(id);
 
             PedidoController.adicionarNoCarrinho(pedido, tv, 10);
-            //PedidoController.removerDoCarrinho(pedido, tv);
-            
-            //PedidoController.alterarPedido(pedido.getId(), pedido);
+            // PedidoController.removerDoCarrinho(pedido, tv);
 
-            //pedido.setCliente(cliente);
-            //PedidoController.adicionarNoCarrinho(pedido, tv, 10);
-            //PedidoController.adicionarNoCarrinho(pedido, mouse, 1);
-            //PedidoController.adicionarNoCarrinho(pedido, teclado, 1);
+            // PedidoController.alterarPedido(pedido.getId(), pedido);
 
-            //PedidoController.cadastrarPedido(pedido);
+            // pedido.setCliente(cliente);
+            // PedidoController.adicionarNoCarrinho(pedido, tv, 10);
+            // PedidoController.adicionarNoCarrinho(pedido, mouse, 1);
+            // PedidoController.adicionarNoCarrinho(pedido, teclado, 1);
+
+            // PedidoController.cadastrarPedido(pedido);
             pedido = PedidoController.buscarPedidoPorId(id);
 
             System.out.println("DADOS\n\n\n");
