@@ -32,6 +32,15 @@ public abstract class ProdutoController {
 
     }
 
+    public static void alterarProdutos(List<Produto> produtos) throws Exception {
+        try {
+            ProdutoDao.alteraProduto(produtos);
+        } catch (Exception e) {
+            throw new Exception("Erro ao alterar pedido, CAUSA:" + e.getMessage());
+        }
+
+    }
+
     public static void deletarProduto(int id) throws Exception {
         try {
             if (ProdutoDao.buscarProduto(id) != null) {
@@ -61,7 +70,7 @@ public abstract class ProdutoController {
         }
     }
 
-    public static List<Produto> buscarProdutoPorNome(String nome) throws Exception {
+    public static Produto buscarProdutoPorNome(String nome) throws Exception {
         try {
             return ProdutoDao.buscarProdutoPorNome(nome);
         } catch (Exception e) {

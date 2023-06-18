@@ -66,8 +66,8 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "\tProduto \n\nnomeProduto: " + nomeProduto + "\nid: " + id + "\nquantidadeEstoque: " + quantidadeEstoque
-                + "\npreço: " + preço + "\ncategoria: " + categoria + "\n\n";
+        return "Produto [id=" + id + ", nomeProduto=" + nomeProduto + ", quantidadeEstoque=" + quantidadeEstoque
+                + ", preço=" + preço + ", categoria=" + categoria + "]";
     }
 
 }

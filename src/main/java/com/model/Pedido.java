@@ -1,8 +1,7 @@
 package com.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -10,53 +9,92 @@ import javax.persistence.*;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "idPedido")
+    private int idPedido;
+
     private double valorTotal;
-    private LocalDateTime dataPedido;
+    private String dataPedido;
     private Double desconto = 0.00;
 
-    @OneToMany
-
+    @ManyToOne
+    @JoinColumn(name = "clienteId")
     private Cliente cliente;
-    HashMap<Produto, Integer> produtos = new HashMap<>();
 
-    public Pedido(double valorTotal, LocalDateTime dataPedido, Double desconto) {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedidoId")
+    private List<PedidoProduto> produtos = new ArrayList<>();
+
+    public Pedido(double valorTotal, String dataPedido, Double desconto) {
         this.valorTotal = valorTotal;
         this.dataPedido = dataPedido;
         this.desconto = desconto;
     }
 
-    public void addProduto(Produto p, int qnt) {
-        produtos.put(p, qnt);
+    public boolean addProduto(Produto produto, int quantidade) {
+        PedidoProduto pedidoProduto = new PedidoProduto();
+        pedidoProduto.setPedido(this);
+        pedidoProduto.setProduto(produto);
+        pedidoProduto.setQuantidade(quantidade);
+        for (PedidoProduto pp : produtos) {
+            if(pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())){
+                return false;
+            }
+        }
+        produtos.add(pedidoProduto);
+        return true;
     }
 
-    public Integer getQuantidade(Produto p) {
-        if (!produtos.containsKey(p))
-            return null;
-        return produtos.get(p);
+    public boolean alteraProduto(Produto produto, int quantidade) {
+        PedidoProduto pedidoProduto = new PedidoProduto();
+        pedidoProduto.setPedido(this);
+        pedidoProduto.setProduto(produto);
+        pedidoProduto.setQuantidade(quantidade);
+        for (PedidoProduto pp : produtos) {
+            if(pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())){
+                produtos.remove(pp);
+                produtos.add(pedidoProduto);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public Produto getProdutoByIndex(int index) {
-        if (produtos.size() < index)
-            return null;
-        return new ArrayList<Produto>(produtos.keySet()).get(index);
+    public boolean removerProduto(Produto produto) {
+        for (PedidoProduto pp : produtos) {
+            if (pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())) {
+                produtos.remove(pp);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public Integer getQuantidadeByIndex(int index) {
-        if (produtos.size() < index)
-            return null;
-        return new ArrayList<Integer>(produtos.values()).get(index);
+    public int getQuantidade(Produto produto) {
+        for (PedidoProduto pp : produtos) {
+            if (pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())) {
+                return pp.getQuantidade();
+            }
+        }
+        return 0;
     }
 
     public Pedido() {
     }
 
+    public List<Produto> getProdutos() {
+        List<Produto> lista = new ArrayList<>();
+        for (PedidoProduto pp : produtos) {
+            lista.add(pp.getProduto());
+        }
+        return lista;
+    }
+
     public void setId(int id) {
-        this.id = id;
+        this.idPedido = id;
     }
 
     public int getId() {
-        return id;
+        return idPedido;
     }
 
     public double getValorTotal() {
@@ -67,20 +105,12 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
-    public LocalDateTime getDataPedido() {
+    public String getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(LocalDateTime dataPedido) {
+    public void setDataPedido(String dataPedido) {
         this.dataPedido = dataPedido;
-    }
-
-    public HashMap<Produto, Integer> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(HashMap<Produto, Integer> produtos) {
-        this.produtos = produtos;
     }
 
     public Double getDesconto() {
@@ -89,6 +119,84 @@ public class Pedido {
 
     public void setDesconto(Double desconto) {
         this.desconto = desconto;
+    }
+
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido [idPedido=" + idPedido + ", valorTotal=" + valorTotal + ", dataPedido=" + dataPedido
+                + ", desconto=" + desconto + ", cliente=" + cliente + ", produtos=" + produtos + "]";
+    }
+
+}
+
+@Entity
+class PedidoProduto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "pedidoId")
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "produtoId")
+    private Produto produto;
+
+    private int quantidade;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @Override
+    public String toString() {
+        return "PedidoProduto [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade
+                + "]";
     }
 
 }
