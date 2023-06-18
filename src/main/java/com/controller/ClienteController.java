@@ -10,8 +10,7 @@ public abstract class ClienteController {
     public static void cadastrarCliente(Cliente cliente) throws Exception {
         try {
             if (cliente.getNome() == null) {
-                System.out.println("Você não pode cadastrar um cliente sem nome!!!");
-                return;
+                throw new Exception("Não pode cadastrar um cliente sem nome!");
             }
             ClienteDao.cadastrarCliente(cliente);
         } catch (Exception e) {
