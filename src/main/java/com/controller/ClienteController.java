@@ -9,11 +9,7 @@ public abstract class ClienteController {
 
     private static boolean clienteExiste(Cliente cliente) throws Exception {
         String cpf = cliente.getCpf();
-        List<Cliente> clientes = buscarClientePorCPF(cpf);
-        if (clientes.size() <= 0 || clientes == null) {
-            return false;
-        }
-        return true;
+        return buscarClientePorCPF(cpf) != null;
     }
 
     public static void cadastrarCliente(Cliente cliente) throws Exception {
@@ -82,7 +78,7 @@ public abstract class ClienteController {
         }
     }
 
-    public static List<Cliente> buscarClientePorCPF(String cpf) throws Exception {
+    public static Cliente buscarClientePorCPF(String cpf) throws Exception {
         try {
             if (cpf != null) {
                 return ClienteDao.buscarClientePorCPF(cpf);

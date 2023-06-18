@@ -25,10 +25,8 @@ public class Pedido {
     @JoinColumn(name = "pedidoId")
     private List<PedidoProduto> produtos = new ArrayList<>();
 
-    public Pedido(double valorTotal, LocalDateTime dataPedido, Double desconto) {
-        this.valorTotal = valorTotal;
+    public Pedido(LocalDateTime dataPedido) {
         this.dataPedido = dataPedido;
-        this.desconto = desconto;
     }
 
     public boolean addProduto(Produto produto, int quantidade) {
@@ -41,8 +39,7 @@ public class Pedido {
                 return false;
             }
         }
-        produtos.add(pedidoProduto);
-        return true;
+        return produtos.add(pedidoProduto);
     }
 
     public boolean alteraProduto(Produto produto, int quantidade) {
@@ -63,8 +60,7 @@ public class Pedido {
     public boolean removerProduto(Produto produto) {
         for (PedidoProduto pp : produtos) {
             if (pp.getProduto().getNomeProduto().equals(produto.getNomeProduto())) {
-                produtos.remove(pp);
-                return true;
+                return produtos.remove(pp);
             }
         }
         return false;

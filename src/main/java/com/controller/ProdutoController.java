@@ -7,8 +7,16 @@ import com.model.Produto;
 
 public abstract class ProdutoController {
 
+    private static boolean produtoExiste(Produto produto) throws Exception {
+        String nome = produto.getNomeProduto();
+        return buscarProdutoPorNome(nome) != null;
+    }
+
     public static void cadastrarProduto(Produto produto) throws Exception {
         try {
+            if(produtoExiste(produto)){
+                throw new Exception("Produto já tem um cadastrado");
+            }
             ProdutoDao.cadastrarProduto(produto);
         } catch (Exception e) {
             throw new Exception("Erro ao cadastrar produto, CAUSA:" + e.getMessage());
@@ -70,9 +78,9 @@ public abstract class ProdutoController {
         }
     }
 
-    public static Produto buscarProdutoPorNome(String nome) throws Exception {
+    public static Produto buscarProdutoPorNome(String nomeProduto) throws Exception {
         try {
-            return ProdutoDao.buscarProdutoPorNome(nome);
+            return ProdutoDao.buscarProdutoPorNome(nomeProduto.toLowerCase());
         } catch (Exception e) {
             throw new Exception("Erro ao buscar produto, CAUSA:" + e.getMessage());
         }

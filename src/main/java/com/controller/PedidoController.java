@@ -9,6 +9,8 @@ public abstract class PedidoController {
 
     public static void cadastrarPedido(Pedido pedido) throws Exception {
         try {
+            if(pedido.getCliente() == null) throw new Exception("Cliente não definido");
+
             List<Produto> produtos = pedido.getProdutos();
             ProdutoController.alterarProdutos(produtos);
             double val = 0.0;
@@ -40,7 +42,6 @@ public abstract class PedidoController {
         try {
             removerDoCarrinho(pedido, produto);
             adicionarNoCarrinho(pedido, produto, quantidade);
-            produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
         } catch (Exception e) {
             throw new Exception("Erro ao alterar carrinho, CAUSA:" + e.getMessage());
         }
@@ -60,10 +61,11 @@ public abstract class PedidoController {
     public static void alterarPedido(int id, Pedido pedido) throws Exception {
         try {
             Pedido prevPedido = PedidoController.buscarPedidoPorId(id);
+            List<Produto> produtos = pedido.getProdutos();
+            ProdutoController.alterarProdutos(produtos);
             if (prevPedido == null) {
                 return;
             }
-            List<Produto> produtos = pedido.getProdutos();
             double val = 0.0;
             for (Produto produto : produtos) {
                 val += produto.getPreço() * pedido.getQuantidade(produto);
