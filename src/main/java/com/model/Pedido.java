@@ -21,7 +21,7 @@ public class Pedido {
     @JoinColumn(name = "clienteId")
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "pedidoId")
     private List<PedidoProduto> produtos = new ArrayList<>();
 

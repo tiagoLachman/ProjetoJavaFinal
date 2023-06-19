@@ -8,6 +8,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true, nullable = false,length = 100)
     private String nomeProduto;
     private int quantidadeEstoque;
     private Double preço;

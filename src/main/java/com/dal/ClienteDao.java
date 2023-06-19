@@ -41,8 +41,6 @@ public abstract class ClienteDao{
             List<Cliente> clientes = sql.getResultList();
             em.getTransaction().commit();    
             return clientes;
-            
-            
         } catch (Exception e) {
             em.getTransaction().rollback();
             return null;
